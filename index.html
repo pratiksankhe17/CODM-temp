@@ -14,7 +14,147 @@
 8
  
 9
-<style>
+</* Floating particles */
+2
+.particle{
+3
+position:fixed;
+4
+width:4px;
+5
+height:4px;
+6
+background:#4fc3ff;
+7
+border-radius:50%;
+8
+opacity:.6;
+9
+animation:float 12s linear infinite;
+10
+}
+11
+ 
+12
+@keyframes float{
+13
+from{
+14
+transform:translateY(100vh);
+15
+opacity:0;
+16
+}
+17
+20%{
+18
+opacity:1;
+19
+}
+20
+to{
+21
+transform:translateY(-100px);
+22
+opacity:0;
+23
+}
+24
+}
+25
+ 
+26
+/* Vault doors */
+27
+.vault{
+28
+position:relative;
+29
+overflow:hidden;
+30
+}
+31
+ 
+32
+.vault::before,
+33
+.vault::after{
+34
+content:"";
+35
+position:absolute;
+36
+top:0;
+37
+width:50%;
+38
+height:100%;
+39
+background:rgba(20,20,30,.95);
+40
+transition:all 1.5s ease;
+41
+}
+42
+ 
+43
+.vault::before{
+44
+left:0;
+45
+}
+46
+ 
+47
+.vault::after{
+48
+right:0;
+49
+}
+50
+ 
+51
+.vault.open::before{
+52
+transform:translateX(-100%);
+53
+}
+54
+ 
+55
+.vault.open::after{
+56
+transform:translateX(100%);
+57
+}
+58
+ 
+59
+/* Reveal glow */
+60
+.reveal{
+61
+animation:glow 1s infinite alternate;
+62
+}
+63
+ 
+64
+@keyframes glow{
+65
+from{
+66
+box-shadow:0 0 15px rgba(79,195,255,.4);
+67
+}
+68
+to{
+69
+box-shadow:0 0 45px rgba(79,195,255,1);
+70
+}
+71
+}>
 10
 *{
 11
@@ -28,6 +168,33 @@ box-sizing:border-box;
 15
  
 16
+<script>
+2
+for(let i=0;i<80;i++){
+3
+ 
+4
+const p=document.createElement('div');
+5
+ 
+6
+p.className='particle';
+7
+ 
+8
+p.style.left=Math.random()*100+'vw';
+9
+p.style.animationDelay=Math.random()*12+'s';
+10
+p.style.animationDuration=(8+Math.random()*10)+'s';
+11
+ 
+12
+document.body.appendChild(p);
+13
+}
+14
+</script>
 body{
 17
 font-family:Segoe UI,Arial,sans-serif;
@@ -525,97 +692,97 @@ revealAssignments();
  
 264
 function revealAssignments(){
-265
+2
  
-266
-const status = document.getElementById("status");
-267
-const results = document.getElementById("results");
-268
+3
+document
+4
+.querySelectorAll('.vault')
+5
+.forEach(v => v.classList.add('open'));
+6
  
-269
+7
 const assigned = shuffle(weapons);
-270
+8
  
-271
+9
 const seed = Math.floor(Math.random()*1000000000);
-272
+10
  
-273
-status.innerHTML =
-274
-"<h2 style='color:#00ff99;'>MISSION COMPLETE</h2>";
-275
- 
-276
-let html = `
-277
-<h3>Audit Seed: ${seed}</h3>
-278
-<p>Equal Probability: 33.33%</p>
-279
-<br>
-280
+11
+let html =
+12
+`
+13
+<h2 class="reveal">MISSION COMPLETE</h2>
+14
+<p>Audit Seed: ${seed}</p>
+15
 `;
-281
+16
  
-282
+17
 let shareText =
-283
+18
 "🏆 MYTHIC ASSIGNMENT COMPLETE\n\n";
-284
+19
  
-285
+20
 players.forEach((player,index)=>{
-286
+21
  
-287
+22
 html += `
-288
-<div class="resultCard">
-289
-<strong>${player}</strong><br><br>
-290
+23
+<div class="resultCard reveal">
+24
+<strong>${player}</strong>
+25
+<br><br>
+26
 ${assigned[index]}
-291
+27
 </div>
-292
+28
 `;
-293
+29
  
-294
+30
 shareText +=
-295
-player + " → " + assigned[index] + "\n";
-296
+31
+player + " → " +
+32
+assigned[index] + "\n";
+33
 });
-297
+34
  
-298
+35
 shareText += "\nSeed: " + seed;
-299
+36
  
-300
+37
 html += `
-301
+38
 <button onclick="copyResult()">
-302
+39
 Copy Results For WhatsApp
-303
+40
 </button>
-304
+41
 `;
-305
+42
  
-306
-results.innerHTML = html;
-307
-results.style.display = "block";
-308
+43
+document.getElementById("results").innerHTML = html;
+44
+document.getElementById("results").style.display = "block";
+45
  
-309
+46
 window.finalShareText = shareText;
-310
+47
 }
 311
  
