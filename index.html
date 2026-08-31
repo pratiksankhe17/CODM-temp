@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+2
+<html lang="en">
+3
+<head>
+4
+<meta charset="UTF-8">
+5
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+6
+ 
+7
+<title>Operation Mythic Vault</title>
+8
+ 
+9
+<style>
+10
+*{
+11
+margin:0;
+12
+padding:0;
+13
+box-sizing:border-box;
+14
+}
+15
+ 
+16
+body{
+17
+font-family:Segoe UI,Arial,sans-serif;
+18
+background:#050816;
+19
+color:white;
+20
+overflow-x:hidden;
+21
+}
+22
+ 
+23
+body::before{
+24
+content:"";
+25
+position:fixed;
+26
+inset:0;
+27
+background:
+28
+radial-gradient(circle at 20% 20%, rgba(0,180,255,.15), transparent 30%),
+29
+radial-gradient(circle at 80% 20%, rgba(255,100,0,.15), transparent 30%),
+30
+radial-gradient(circle at 50% 70%, rgba(185,0,255,.15), transparent 30%);
+31
+animation:pulse 6s infinite alternate;
+32
+}
+33
+ 
+34
+@keyframes pulse{
+35
+from{transform:scale(1);}
+36
+to{transform:scale(1.08);}
+37
+}
+38
+ 
+39
+.container{
+40
+position:relative;
+41
+z-index:1;
+42
+max-width:1200px;
+43
+margin:auto;
+44
+padding:30px;
+45
+text-align:center;
+46
+}
+47
+ 
+48
+.title{
+49
+font-size:3rem;
+50
+font-weight:900;
+51
+background:linear-gradient(90deg,#4fc3ff,#ff7b39,#bb6bff);
+52
+-webkit-background-clip:text;
+53
+color:transparent;
+54
+}
+55
+ 
+56
+.subtitle{
+57
+color:#cfd8dc;
+58
+margin-top:10px;
+59
+}
+60
+ 
+61
+.players{
+62
+display:flex;
+63
+flex-wrap:wrap;
+64
+justify-content:center;
+65
+gap:20px;
+66
+margin-top:35px;
+67
+}
+68
+ 
+69
+.card{
+70
+width:280px;
+71
+padding:20px;
+72
+border-radius:20px;
+73
+background:rgba(255,255,255,.05);
+74
+border:1px solid rgba(255,255,255,.1);
+75
+backdrop-filter:blur(8px);
+76
+box-shadow:0 0 20px rgba(0,255,255,.15);
+77
+}
+78
+ 
+79
+.card h3{
+80
+margin-bottom:10px;
+81
+}
+82
+ 
+83
+.vaults{
+84
+display:flex;
+85
+flex-wrap:wrap;
+86
+justify-content:center;
+87
+gap:20px;
+88
+margin-top:35px;
+89
+}
+90
+ 
+91
+.vault{
+92
+width:280px;
+93
+padding:20px;
+94
+border-radius:20px;
+95
+font-weight:bold;
+96
+}
+97
+ 
+98
+.bal{
+99
+border:2px solid #59b8ff;
+100
+box-shadow:0 0 25px #59b8ff55;
+101
+}
+102
+ 
+103
+.static{
+104
+border:2px solid #ff7b39;
+105
+box-shadow:0 0 25px #ff7b3955;
+106
+}
+107
+ 
+108
+.iso{
+109
+border:2px solid #b84dff;
+110
+box-shadow:0 0 25px #b84dff55;
+111
+}
+112
+ 
+113
+button{
+114
+margin-top:40px;
+115
+padding:16px 35px;
+116
+border:none;
+117
+border-radius:12px;
+118
+background:#1565ff;
+119
+color:white;
+120
+cursor:pointer;
+121
+font-size:1rem;
+122
+font-weight:700;
+123
+}
+124
+ 
+125
+button:hover{
+126
+background:#2d7bff;
+127
+}
+128
+ 
+129
+#status{
+130
+margin-top:30px;
+131
+min-height:40px;
+132
+font-size:1.1rem;
+133
+}
+134
+ 
+135
+#results{
+136
+display:none;
+137
+margin-top:30px;
+138
+}
+139
+ 
+140
+.resultCard{
+141
+max-width:500px;
+142
+margin:10px auto;
+143
+padding:18px;
+144
+border-radius:15px;
+145
+background:rgba(255,255,255,.08);
+146
+}
+147
+</style>
+148
+</head>
+149
+ 
+150
+<body>
+151
+ 
+152
+<div class="container">
+153
+ 
+154
+<h1 class="title">OPERATION: MYTHIC VAULT</h1>
+155
+ 
+156
+<p class="subtitle">
+157
+Three Operators. Three Mythics. No Drama. Fate Decides.
+158
+</p>
+159
+ 
+160
+<div class="players">
+161
+<div class="card">
+162
+<h3>🇦🇺 Suplex_O</h3>
+163
+Operator Verified
+164
+</div>
+165
+ 
+166
+<div class="card">
+167
+<h3>🇦🇺 Maverick</h3>
+168
+Operator Verified
+169
+</div>
+170
+ 
+171
+<div class="card">
+172
+<h3>🇬🇧 TFX_Akaza</h3>
+173
+Operator Verified
+174
+</div>
+175
+</div>
+176
+ 
+177
+<div class="vaults">
+178
+ 
+179
+<div class="vault bal">
+180
+❄ BAL-27<br>
+181
+Core Of Reason
+182
+</div>
+183
+ 
+184
+<div class="vault static">
+185
+🔥 Static-HV<br>
+186
+Core Of Fire
+187
+</div>
+188
+ 
+189
+<div class="vault iso">
+190
+⚡ ISO Hemlock<br>
+191
+Core Of Thunder
+192
+</div>
+193
+ 
+194
+</div>
+195
+ 
+196
+<button onclick="startProtocol()">
+197
+INITIALIZE VAULT PROTOCOL
+198
+</button>
+199
+ 
+200
+<div id="status"></div>
+201
+ 
+202
+<div id="results"></div>
+203
+ 
+204
+</div>
+205
+ 
+206
+<script>
+207
+ 
+208
+const players = [
+209
+"Suplex_O",
+210
+"Maverick",
+211
+"TFX_Akaza"
+212
+];
+213
+ 
+214
+const weapons = [
+215
+"❄ BAL-27 • Core Of Reason",
+216
+"🔥 Static-HV • Core Of Fire",
+217
+"⚡ ISO Hemlock • Core Of Thunder"
+218
+];
+219
+ 
+220
+function sleep(ms){
+221
+return new Promise(resolve => setTimeout(resolve, ms));
+222
+}
+223
+ 
+224
+function shuffle(array){
+225
+ 
+226
+const arr = [...array];
+227
+ 
+228
+for(let i=arr.length-1;i>0;i--){
+229
+const j = Math.floor(Math.random()*(i+1));
+230
+[arr[i],arr[j]]=[arr[j],arr[i]];
+231
+}
+232
+ 
+233
+return arr;
+234
+}
+235
+ 
+236
+async function startProtocol(){
+237
+ 
+238
+const status = document.getElementById("status");
+239
+const results = document.getElementById("results");
+240
+ 
+241
+results.style.display = "none";
+242
+ 
+243
+const messages = [
+244
+"Verifying Operators...",
+245
+"Establishing Entropy Source...",
+246
+"Initializing Mythic Vaults...",
+247
+"Duplicate Protection Enabled...",
+248
+"Preparing Assignment Matrix..."
+249
+];
+250
+ 
+251
+for(const msg of messages){
+252
+status.innerHTML = "<h2>"+msg+"</h2>";
+253
+await sleep(1200);
+254
+}
+255
+ 
+256
+for(let i=3;i>=1;i--){
+257
+status.innerHTML = "<h1 style='font-size:5rem;'>"+i+"</h1>";
+258
+await sleep(1000);
+259
+}
+260
+ 
+261
+revealAssignments();
+262
+}
+263
+ 
+264
+function revealAssignments(){
+265
+ 
+266
+const status = document.getElementById("status");
+267
+const results = document.getElementById("results");
+268
+ 
+269
+const assigned = shuffle(weapons);
+270
+ 
+271
+const seed = Math.floor(Math.random()*1000000000);
+272
+ 
+273
+status.innerHTML =
+274
+"<h2 style='color:#00ff99;'>MISSION COMPLETE</h2>";
+275
+ 
+276
+let html = `
+277
+<h3>Audit Seed: ${seed}</h3>
+278
+<p>Equal Probability: 33.33%</p>
+279
+<br>
+280
+`;
+281
+ 
+282
+let shareText =
+283
+"🏆 MYTHIC ASSIGNMENT COMPLETE\n\n";
+284
+ 
+285
+players.forEach((player,index)=>{
+286
+ 
+287
+html += `
+288
+<div class="resultCard">
+289
+<strong>${player}</strong><br><br>
+290
+${assigned[index]}
+291
+</div>
+292
+`;
+293
+ 
+294
+shareText +=
+295
+player + " → " + assigned[index] + "\n";
+296
+});
+297
+ 
+298
+shareText += "\nSeed: " + seed;
+299
+ 
+300
+html += `
+301
+<button onclick="copyResult()">
+302
+Copy Results For WhatsApp
+303
+</button>
+304
+`;
+305
+ 
+306
+results.innerHTML = html;
+307
+results.style.display = "block";
+308
+ 
+309
+window.finalShareText = shareText;
+310
+}
+311
+ 
+312
+function copyResult(){
+313
+ 
+314
+navigator.clipboard.writeText(window.finalShareText);
+315
+ 
+316
+alert("Results copied to clipboard!");
+317
+}
+318
+ 
+319
+</script>
+320
+ 
+321
+</body>
+322
+</html>
