@@ -14,147 +14,7 @@
 8
  
 9
-</* Floating particles */
-2
-.particle{
-3
-position:fixed;
-4
-width:4px;
-5
-height:4px;
-6
-background:#4fc3ff;
-7
-border-radius:50%;
-8
-opacity:.6;
-9
-animation:float 12s linear infinite;
-10
-}
-11
- 
-12
-@keyframes float{
-13
-from{
-14
-transform:translateY(100vh);
-15
-opacity:0;
-16
-}
-17
-20%{
-18
-opacity:1;
-19
-}
-20
-to{
-21
-transform:translateY(-100px);
-22
-opacity:0;
-23
-}
-24
-}
-25
- 
-26
-/* Vault doors */
-27
-.vault{
-28
-position:relative;
-29
-overflow:hidden;
-30
-}
-31
- 
-32
-.vault::before,
-33
-.vault::after{
-34
-content:"";
-35
-position:absolute;
-36
-top:0;
-37
-width:50%;
-38
-height:100%;
-39
-background:rgba(20,20,30,.95);
-40
-transition:all 1.5s ease;
-41
-}
-42
- 
-43
-.vault::before{
-44
-left:0;
-45
-}
-46
- 
-47
-.vault::after{
-48
-right:0;
-49
-}
-50
- 
-51
-.vault.open::before{
-52
-transform:translateX(-100%);
-53
-}
-54
- 
-55
-.vault.open::after{
-56
-transform:translateX(100%);
-57
-}
-58
- 
-59
-/* Reveal glow */
-60
-.reveal{
-61
-animation:glow 1s infinite alternate;
-62
-}
-63
- 
-64
-@keyframes glow{
-65
-from{
-66
-box-shadow:0 0 15px rgba(79,195,255,.4);
-67
-}
-68
-to{
-69
-box-shadow:0 0 45px rgba(79,195,255,1);
-70
-}
-71
-}>
+<style>
 10
 *{
 11
@@ -168,33 +28,6 @@ box-sizing:border-box;
 15
  
 16
-<script>
-2
-for(let i=0;i<80;i++){
-3
- 
-4
-const p=document.createElement('div');
-5
- 
-6
-p.className='particle';
-7
- 
-8
-p.style.left=Math.random()*100+'vw';
-9
-p.style.animationDelay=Math.random()*12+'s';
-10
-p.style.animationDuration=(8+Math.random()*10)+'s';
-11
- 
-12
-document.body.appendChild(p);
-13
-}
-14
-</script>
 body{
 17
 font-family:Segoe UI,Arial,sans-serif;
@@ -205,153 +38,153 @@ color:white;
 20
 overflow-x:hidden;
 21
-}
+min-height:100vh;
 22
- 
+}
 23
-body::before{
+ 
 24
-content:"";
+body::before{
 25
-position:fixed;
+content:"";
 26
-inset:0;
+position:fixed;
 27
-background:
+inset:0;
 28
-radial-gradient(circle at 20% 20%, rgba(0,180,255,.15), transparent 30%),
+background:
 29
-radial-gradient(circle at 80% 20%, rgba(255,100,0,.15), transparent 30%),
+radial-gradient(circle at 20% 20%, rgba(0,180,255,.15), transparent 30%),
 30
-radial-gradient(circle at 50% 70%, rgba(185,0,255,.15), transparent 30%);
+radial-gradient(circle at 80% 20%, rgba(255,100,0,.15), transparent 30%),
 31
-animation:pulse 6s infinite alternate;
+radial-gradient(circle at 50% 70%, rgba(185,0,255,.15), transparent 30%);
 32
-}
+animation:pulse 8s infinite alternate;
 33
- 
+pointer-events:none;
 34
-@keyframes pulse{
+}
 35
-from{transform:scale(1);}
+ 
 36
-to{transform:scale(1.08);}
+@keyframes pulse{
 37
-}
+from{transform:scale(1);}
 38
- 
+to{transform:scale(1.1);}
 39
-.container{
+}
 40
-position:relative;
+ 
 41
-z-index:1;
+.container{
 42
-max-width:1200px;
+position:relative;
 43
-margin:auto;
+z-index:2;
 44
-padding:30px;
+max-width:1200px;
 45
-text-align:center;
+padding:30px;
 46
-}
+margin:auto;
 47
- 
+text-align:center;
 48
-.title{
+}
 49
-font-size:3rem;
+ 
 50
-font-weight:900;
+.title{
 51
-background:linear-gradient(90deg,#4fc3ff,#ff7b39,#bb6bff);
+font-size:3rem;
 52
--webkit-background-clip:text;
+font-weight:900;
 53
-color:transparent;
+background:linear-gradient(90deg,#4fc3ff,#ff7b39,#bb6bff);
 54
-}
+-webkit-background-clip:text;
 55
- 
+color:transparent;
 56
-.subtitle{
-57
-color:#cfd8dc;
-58
-margin-top:10px;
-59
-}
-60
- 
-61
-.players{
-62
-display:flex;
-63
-flex-wrap:wrap;
-64
-justify-content:center;
-65
-gap:20px;
-66
-margin-top:35px;
-67
-}
-68
- 
-69
-.card{
-70
-width:280px;
-71
-padding:20px;
-72
-border-radius:20px;
-73
-background:rgba(255,255,255,.05);
-74
-border:1px solid rgba(255,255,255,.1);
-75
-backdrop-filter:blur(8px);
-76
-box-shadow:0 0 20px rgba(0,255,255,.15);
-77
-}
-78
- 
-79
-.card h3{
-80
 margin-bottom:10px;
+57
+}
+58
+ 
+59
+.subtitle{
+60
+color:#ccc;
+61
+margin-bottom:30px;
+62
+}
+63
+ 
+64
+.players,
+65
+.vaults{
+66
+display:flex;
+67
+flex-wrap:wrap;
+68
+justify-content:center;
+69
+gap:20px;
+70
+margin-top:25px;
+71
+}
+72
+ 
+73
+.card,
+74
+.vault{
+75
+width:280px;
+76
+padding:20px;
+77
+border-radius:20px;
+78
+background:rgba(255,255,255,.05);
+79
+border:1px solid rgba(255,255,255,.15);
+80
+backdrop-filter:blur(10px);
 81
 }
 82
  
 83
-.vaults{
+.card{
 84
-display:flex;
+box-shadow:0 0 20px rgba(0,255,255,.15);
 85
-flex-wrap:wrap;
-86
-justify-content:center;
-87
-gap:20px;
-88
-margin-top:35px;
-89
 }
-90
+86
  
-91
+87
 .vault{
+88
+position:relative;
+89
+height:170px;
+90
+display:flex;
+91
+justify-content:center;
 92
-width:280px;
+align-items:center;
 93
-padding:20px;
+flex-direction:column;
 94
-border-radius:20px;
+overflow:hidden;
 95
 font-weight:bold;
 96
@@ -359,452 +192,528 @@ font-weight:bold;
 97
  
 98
-.bal{
+.vault::before,
 99
-border:2px solid #59b8ff;
+.vault::after{
 100
-box-shadow:0 0 25px #59b8ff55;
+content:"";
 101
-}
+position:absolute;
 102
- 
+top:0;
 103
-.static{
+height:100%;
 104
-border:2px solid #ff7b39;
+width:50%;
 105
-box-shadow:0 0 25px #ff7b3955;
+background:#121722;
 106
-}
+transition:1.5s ease;
 107
- 
+z-index:2;
 108
-.iso{
+}
 109
-border:2px solid #b84dff;
+ 
 110
-box-shadow:0 0 25px #b84dff55;
+.vault::before{
 111
-}
+left:0;
 112
- 
+}
 113
-button{
+ 
 114
-margin-top:40px;
+.vault::after{
 115
-padding:16px 35px;
+right:0;
 116
-border:none;
+}
 117
-border-radius:12px;
+ 
 118
-background:#1565ff;
+.vault.open::before{
 119
-color:white;
+transform:translateX(-100%);
 120
-cursor:pointer;
+}
 121
-font-size:1rem;
+ 
 122
-font-weight:700;
+.vault.open::after{
 123
-}
+transform:translateX(100%);
 124
- 
+}
 125
-button:hover{
+ 
 126
-background:#2d7bff;
+.bal{
 127
-}
+border-color:#59b8ff;
 128
- 
+box-shadow:0 0 30px rgba(89,184,255,.4);
 129
-#status{
+}
 130
-margin-top:30px;
+ 
 131
-min-height:40px;
+.static{
 132
-font-size:1.1rem;
+border-color:#ff7b39;
 133
-}
+box-shadow:0 0 30px rgba(255,123,57,.4);
 134
- 
+}
 135
-#results{
+ 
 136
-display:none;
+.iso{
 137
-margin-top:30px;
+border-color:#b84dff;
 138
-}
+box-shadow:0 0 30px rgba(184,77,255,.4);
 139
- 
-140
-.resultCard{
-141
-max-width:500px;
-142
-margin:10px auto;
-143
-padding:18px;
-144
-border-radius:15px;
-145
-background:rgba(255,255,255,.08);
-146
 }
-147
-</style>
-148
-</head>
-149
+140
  
+141
+button{
+142
+padding:16px 35px;
+143
+margin-top:35px;
+144
+border:none;
+145
+border-radius:12px;
+146
+font-weight:700;
+147
+background:#1565ff;
+148
+color:white;
+149
+cursor:pointer;
 150
-<body>
+}
 151
  
 152
-<div class="container">
+button:hover{
 153
- 
+background:#2d7bff;
 154
-<h1 class="title">OPERATION: MYTHIC VAULT</h1>
+}
 155
  
 156
-<p class="subtitle">
+#status{
 157
-Three Operators. Three Mythics. No Drama. Fate Decides.
+margin-top:30px;
 158
-</p>
+min-height:100px;
 159
- 
+}
 160
-<div class="players">
+ 
 161
-<div class="card">
+#results{
 162
-<h3>🇦🇺 Suplex_O</h3>
+display:none;
 163
-Operator Verified
+margin-top:30px;
 164
-</div>
+}
 165
  
 166
-<div class="card">
+.resultCard{
 167
-<h3>🇦🇺 Maverick</h3>
+max-width:600px;
 168
-Operator Verified
+margin:12px auto;
 169
-</div>
+padding:20px;
 170
- 
+border-radius:15px;
 171
-<div class="card">
+background:rgba(255,255,255,.08);
 172
-<h3>🇬🇧 TFX_Akaza</h3>
+box-shadow:0 0 25px rgba(79,195,255,.25);
 173
-Operator Verified
+animation:glow 1.5s infinite alternate;
 174
-</div>
+}
 175
-</div>
+ 
 176
- 
+@keyframes glow{
 177
-<div class="vaults">
+from{
 178
- 
+box-shadow:0 0 10px rgba(79,195,255,.4);
 179
-<div class="vault bal">
+}
 180
-❄ BAL-27<br>
+to{
 181
-Core Of Reason
+box-shadow:0 0 40px rgba(79,195,255,1);
 182
-</div>
+}
 183
- 
+}
 184
-<div class="vault static">
+ 
 185
-🔥 Static-HV<br>
+.particle{
 186
-Core Of Fire
+position:fixed;
 187
-</div>
+width:4px;
 188
- 
+height:4px;
 189
-<div class="vault iso">
+background:#4fc3ff;
 190
-⚡ ISO Hemlock<br>
+border-radius:50%;
 191
-Core Of Thunder
+opacity:.5;
 192
-</div>
+animation:float linear infinite;
 193
- 
+pointer-events:none;
 194
-</div>
+}
 195
  
 196
-<button onclick="startProtocol()">
+@keyframes float{
 197
-INITIALIZE VAULT PROTOCOL
+from{
 198
-</button>
+transform:translateY(100vh);
 199
- 
+opacity:0;
 200
-<div id="status"></div>
+}
 201
- 
+20%{
 202
-<div id="results"></div>
+opacity:1;
 203
- 
+}
 204
-</div>
+to{
 205
- 
+transform:translateY(-100px);
 206
-<script>
+opacity:0;
 207
- 
+}
 208
-const players = [
+}
 209
-"Suplex_O",
+</style>
 210
-"Maverick",
+</head>
 211
-"TFX_Akaza"
+ 
 212
-];
+<body>
 213
  
 214
-const weapons = [
+<div class="container">
 215
-"❄ BAL-27 • Core Of Reason",
+ 
 216
-"🔥 Static-HV • Core Of Fire",
+<h1 class="title">OPERATION MYTHIC VAULT</h1>
 217
-"⚡ ISO Hemlock • Core Of Thunder"
+ 
 218
-];
+<p class="subtitle">
 219
- 
+Three Operators. Three Mythics. No Drama. Fate Decides.
 220
-function sleep(ms){
+</p>
 221
-return new Promise(resolve => setTimeout(resolve, ms));
+ 
 222
-}
+<div class="players">
 223
- 
+<div class="card"><h3>🇦🇺 Suplex_O</h3>Operator Verified</div>
 224
-function shuffle(array){
+<div class="card"><h3>🇦🇺 Maverick</h3>Operator Verified</div>
 225
- 
+<div class="card"><h3>🇬🇧 TFX_Akaza</h3>Operator Verified</div>
 226
-const arr = [...array];
+</div>
 227
  
 228
-for(let i=arr.length-1;i>0;i--){
+<div class="vaults">
 229
-const j = Math.floor(Math.random()*(i+1));
+<div class="vault bal">❄ BAL-27<br>Core Of Reason</div>
 230
-[arr[i],arr[j]]=[arr[j],arr[i]];
+<div class="vault static">🔥 Static-HV<br>Core Of Fire</div>
 231
-}
+<div class="vault iso">⚡ ISO Hemlock<br>Core Of Thunder</div>
 232
- 
+</div>
 233
-return arr;
-234
-}
-235
  
+234
+<button onclick="startProtocol()">
+235
+INITIALIZE VAULT PROTOCOL
 236
-async function startProtocol(){
+</button>
 237
  
 238
-const status = document.getElementById("status");
+<div id="status"></div>
 239
-const results = document.getElementById("results");
+ 
 240
- 
+<div id="results"></div>
 241
-results.style.display = "none";
+ 
 242
- 
+</div>
 243
-const messages = [
+ 
 244
-"Verifying Operators...",
+<script>
 245
-"Establishing Entropy Source...",
+ 
 246
-"Initializing Mythic Vaults...",
+for(let i=0;i<80;i++){
 247
-"Duplicate Protection Enabled...",
+const p=document.createElement('div');
 248
-"Preparing Assignment Matrix..."
+p.className='particle';
 249
-];
+p.style.left=Math.random()*100+'vw';
 250
- 
+p.style.animationDuration=(8+Math.random()*10)+'s';
 251
-for(const msg of messages){
+p.style.animationDelay=Math.random()*10+'s';
 252
-status.innerHTML = "<h2>"+msg+"</h2>";
+document.body.appendChild(p);
 253
-await sleep(1200);
+}
 254
-}
-255
  
+255
+const players=[
 256
-for(let i=3;i>=1;i--){
+"Suplex_O",
 257
-status.innerHTML = "<h1 style='font-size:5rem;'>"+i+"</h1>";
+"Maverick",
 258
-await sleep(1000);
+"TFX_Akaza"
 259
-}
+];
 260
  
 261
-revealAssignments();
+const weapons=[
 262
-}
+"❄ BAL-27 • Core Of Reason",
 263
- 
+"🔥 Static-HV • Core Of Fire",
 264
+"⚡ ISO Hemlock • Core Of Thunder"
+265
+];
+266
+ 
+267
+function sleep(ms){
+268
+return new Promise(resolve=>setTimeout(resolve,ms));
+269
+}
+270
+ 
+271
+function shuffle(arr){
+272
+const a=[...arr];
+273
+for(let i=a.length-1;i>0;i--){
+274
+const j=Math.floor(Math.random()*(i+1));
+275
+[a[i],a[j]]=[a[j],a[i]];
+276
+}
+277
+return a;
+278
+}
+279
+ 
+280
+async function startProtocol(){
+281
+ 
+282
+const status=document.getElementById("status");
+283
+const results=document.getElementById("results");
+284
+ 
+285
+results.style.display="none";
+286
+ 
+287
+const messages=[
+288
+"Verifying Operators...",
+289
+"Establishing Entropy Source...",
+290
+"Initializing Mythic Vaults...",
+291
+"Duplicate Prevention... PASSED",
+292
+"Preparing Assignment Matrix..."
+293
+];
+294
+ 
+295
+for(const msg of messages){
+296
+status.innerHTML="<h2>"+msg+"</h2>";
+297
+await sleep(1200);
+298
+}
+299
+ 
+300
+for(let i=3;i>=1;i--){
+301
+status.innerHTML="<h1 style='font-size:5rem'>"+i+"</h1>";
+302
+await sleep(1000);
+303
+}
+304
+ 
+305
+revealAssignments();
+306
+ 
+307
+}
+308
+ 
+309
 function revealAssignments(){
-2
+310
  
-3
-document
-4
-.querySelectorAll('.vault')
-5
-.forEach(v => v.classList.add('open'));
-6
- 
-7
-const assigned = shuffle(weapons);
-8
- 
-9
-const seed = Math.floor(Math.random()*1000000000);
-10
- 
-11
-let html =
-12
-`
-13
-<h2 class="reveal">MISSION COMPLETE</h2>
-14
-<p>Audit Seed: ${seed}</p>
-15
-`;
-16
- 
-17
-let shareText =
-18
-"🏆 MYTHIC ASSIGNMENT COMPLETE\n\n";
-19
- 
-20
-players.forEach((player,index)=>{
-21
- 
-22
-html += `
-23
-<div class="resultCard reveal">
-24
-<strong>${player}</strong>
-25
-<br><br>
-26
-${assigned[index]}
-27
-</div>
-28
-`;
-29
- 
-30
-shareText +=
-31
-player + " → " +
-32
-assigned[index] + "\n";
-33
-});
-34
- 
-35
-shareText += "\nSeed: " + seed;
-36
- 
-37
-html += `
-38
-<button onclick="copyResult()">
-39
-Copy Results For WhatsApp
-40
-</button>
-41
-`;
-42
- 
-43
-document.getElementById("results").innerHTML = html;
-44
-document.getElementById("results").style.display = "block";
-45
- 
-46
-window.finalShareText = shareText;
-47
-}
 311
- 
+document
 312
-function copyResult(){
+.querySelectorAll(".vault")
 313
- 
+.forEach(v=>v.classList.add("open"));
 314
-navigator.clipboard.writeText(window.finalShareText);
-315
  
+315
+const assigned=shuffle(weapons);
 316
-alert("Results copied to clipboard!");
+ 
 317
-}
+const seed=Math.floor(Math.random()*1000000000);
 318
  
 319
-</script>
+let html=
 320
- 
+"<h2>MISSION COMPLETE</h2><br>" +
 321
-</body>
+"<p>Audit Seed: "+seed+"</p><br>";
 322
+ 
+323
+let shareText="🏆 MYTHIC ASSIGNMENT COMPLETE\n\n";
+324
+ 
+325
+players.forEach((player,index)=>{
+326
+ 
+327
+html +=
+328
+"<div class='resultCard'>" +
+329
+"<strong>"+player+"</strong><br><br>" +
+330
+assigned[index] +
+331
+"</div>";
+332
+ 
+333
+shareText +=
+334
+player + " → " +
+335
+assigned[index] +
+336
+"\n";
+337
+ 
+338
+});
+339
+ 
+340
+shareText += "\nSeed: " + seed;
+341
+ 
+342
+html +=
+343
+"<button onclick='copyResult()'>Copy Results For WhatsApp</button>";
+344
+ 
+345
+document.getElementById("results").innerHTML=html;
+346
+document.getElementById("results").style.display="block";
+347
+ 
+348
+window.finalShareText=shareText;
+349
+}
+350
+ 
+351
+function copyResult(){
+352
+ 
+353
+navigator.clipboard.writeText(window.finalShareText);
+354
+ 
+355
+alert("Results copied!");
+356
+}
+357
+</script>
+358
+ 
+359
+</body>
+360
 </html>
